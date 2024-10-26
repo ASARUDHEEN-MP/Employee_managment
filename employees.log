@@ -1,0 +1,7 @@
+INFO 2024-10-26 10:38:01,950 views Employee created successfully: {'id': 50, 'user': 3, 'name': 'asarudhen', 'email': 'a@1234gmail.com', 'phone_number': '132', 'custom_fields': {'experience': '21'}}
+INFO 2024-10-26 10:38:10,891 views Employee data retrieved from Redis cache.
+INFO 2024-10-26 10:38:10,901 views Employee updated successfully: {'id': 49, 'user': 3, 'name': 'asarudheen', 'email': 'a@gmail.com', 'phone_number': '793', 'custom_fields': {'experience': '122'}}
+INFO 2024-10-26 10:38:21,758 views Employee data retrieved from Redis cache.
+INFO 2024-10-26 10:38:21,774 views Employee data retrieved from Redis cache.
+INFO 2024-10-26 10:38:27,769 views Employee data retrieved from Redis cache.
+INFO 2024-10-26 10:38:27,777 views Employee updated successfully: {'id': 50, 'user': 3, 'name': 'asarudhen', 'email': 'a@1234gmail.com', 'phone_number': '132', 'custom_fields': {'experience': '21', 'age': '23'}}

@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 from decouple import config, Csv
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -161,10 +162,61 @@ CORS_ALLOW_CREDENTIALS = True
 
 # jwt_token conf
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=25),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=3),  # Set access token lifetime to 3 days
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),  # Refresh token lifetime remains 1 day
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
     'UPDATE_LAST_LOGIN': False,
     'AUTH_HEADER_TYPES': ('Bearer',),
+}
+# end of the jwt conf
+
+
+# log conf start
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            # here we need to mention the log file
+            'filename': os.path.join(BASE_DIR, 'employees.log'), 
+            'formatter': 'verbose',
+        },
+    },
+    #  access here
+    'loggers': {
+        'employees.view': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG', 
+            'propagate': False,
+        },
+    },
+}
+
+
+
+# redis caching conf(if any other cache is using in local change the port)
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
+       
+    }
 }
