@@ -7,7 +7,7 @@ from rest_framework import status
 from django.db.models import Q
 from django.db import transaction
 import logging
-from django.core.cache import cache
+
 
 
 logger = logging.getLogger('employees.view')
@@ -17,44 +17,20 @@ class EmployeeViewSet(viewsets.ModelViewSet):
     serializer_class = EmployeeSerializer
     permission_classes = [IsAuthenticated]
 
-    def get_queryset(self):
-        user_id = self.request.user.id
-        search = self.request.query_params.get('search', None)
+   def get_queryset(self):
+        queryset = Employee.objects.filter(user=self.request.user)
         
-        # Base cache key without search term
-        cache_key = f'employees_{user_id}'
-
-        # Attempt to retrieve all employee data from cache
-        cached_data = cache.get(cache_key)
-
-        # If no cached data, retrieve from database
-        if cached_data is None:
-            queryset = Employee.objects.filter(user=self.request.user)
-
-            # Cache all employees for the user
-            cache.set(cache_key, list(queryset.values()), timeout=3600)  # Cache for 1 hour
-            logger.info('All employee data cached in Redis.')
-        else:
-            logger.info('Employee data retrieved from Redis cache.')
-
-        # Use the cached data for further processing
-        queryset = Employee.objects.filter(user=self.request.user)  # Reset queryset
-
-        # If search term is provided, filter the queryset
+        # Get the 'search' query parameter
+        search = self.request.query_params.get('search', None)
         if search:
+            # Filter by name, email, or phone number
             queryset = queryset.filter(
                 Q(name__icontains=search) |
                 Q(email__icontains=search) |
                 Q(phone_number__icontains=search)
             )
-
+            
         return queryset
-
-    def list(self, request, *args, **kwargs):
-        # You can directly use the existing list method which calls get_queryset
-        queryset = self.get_queryset()
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
 
     def create(self, request):
         try:
@@ -107,7 +83,6 @@ class EmployeeViewSet(viewsets.ModelViewSet):
         try:
             employee = self.get_object()
             employee.delete()
-            cache.delete(f'employees_{self.request.user.id}')
             logger.info('Employee deleted successfully: %s', employee.id)
             return Response(status=status.HTTP_204_NO_CONTENT)
         except Exception as e:
