@@ -391,3 +391,36 @@ You can now access the API at http://127.0.0.1:8000/
       "error": "A custom field with this name already exists for this user."
     }
 
+  
+**Create Employee **
+
+- **URL**: `http://127.0.0.1:8000/employee/api/employees/`
+- **Method**: `POST`
+- **Request Body**:
+  ```json
+  {
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "phone_number": "1234567890",
+    "Custom Field Name":"value(int,str)"
+  
+  }
+- **Response**: 
+    - On successful login:
+        ```json
+        {
+        "id": 1,
+        "user": 1,
+        "name": "John Doe",
+        "email": "john.doe@example.com",
+        "phone_number": "1234567890",
+        "custom_fields": {"Custom Field Name":"value(int,str)"}
+      }
+  ```
+- **400 Bad Request**:
+  ```json
+       {
+        "error": "Invalid custom field: \"name of that field\""
+      }
+  ```
+       
