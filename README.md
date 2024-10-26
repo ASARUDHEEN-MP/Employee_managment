@@ -189,7 +189,7 @@ You can now access the API at http://127.0.0.1:8000/
 
 **Create Employee **
 
-- **URL**: `http://127.0.0.1:8000/api/employees/`
+- **URL**: `http://127.0.0.1:8000/employee/api/employees/`
 - **Method**: `POST`
 - **Request Body**:
   ```json
@@ -237,7 +237,7 @@ You can now access the API at http://127.0.0.1:8000/
 
  **update Employee **
 
-- **URL**: `http://127.0.0.1:8000/api/employees/{employyeid}`
+- **URL**: `http://127.0.0.1:8000/employee/api/employees/{employyeid}`
 - **Method**: `PUT`
 - **Request Body**:
   ```json
@@ -285,25 +285,16 @@ You can now access the API at http://127.0.0.1:8000/
 
  **DELETE Employee **
  
-- **URL**: `http://127.0.0.1:8000/api/employees/{employyeid}`
+- **URL**: `http://127.0.0.1:8000/employee/api/employees/{employyeid}`
 - **Method**: `DELETE`
-- **Request Body**:
-  ```json
+
  
 - **Response**: 
-    - On successful login:
-        ```json
-            {
-        "deleted successfully....
-      }
-      
-
-        ```
+  
+- **204 No Content::**
+  - **Description**: Description: Custom field deleted successfully. Employee records updated accordingly.
     - On error (e.g., validation errors if password or username is null):
-        ```json
-        {
-        "error": "This field is required."
-      }
+       
 
         ```
         Or for invalid credentials:
@@ -326,7 +317,7 @@ You can now access the API at http://127.0.0.1:8000/
 
 **Search Employees**
 
-- **URL**: `http://127.0.0.1:8000/api/employees/`
+- **URL**: `http://127.0.0.1:8000/employee/api/employees/`
 - **Method**: `GET`
 - **Query Parameters**:
   - `search`: (optional) A string to search for in employee names, emails, or phone numbers.("http://127.0.0.1:8000/employee/api/employees/?search=manu@g")
@@ -346,3 +337,57 @@ You can now access the API at http://127.0.0.1:8000/
       "custom_fields": {}
     }
   ]
+
+### 6. Dynamic fields for  Employees
+
+**Here name,phonenumber,email is static field and able to add more fields and delete the fields also  and the fields add by a user not be effect to the other user**
+
+
+#### Create Custom Field
+
+- **URL**: `http://127.0.0.1:8000/employee/api/custom-fields/`
+- **Method**: `POST`
+- **Request Body**:
+  ```json
+  {
+    "field_name": "Custom Field Name",
+    "field_type": "text"  
+  }
+
+**Responses**
+- **200 OK:**
+  - **Description**: Custom field created successfully..
+  - **Example**:
+  ```json
+       {
+    "id": 1,
+    "user": 1,
+    "field_name": "Custom Field Name",
+      "field_type": "text"
+    }
+
+- **400 OK:**
+  - **Description**: Custom field created successfully..
+  - **Example**:
+  ```json
+     {
+      "error": "A custom field with this name already exists for this user."
+    }
+
+
+
+- **URL**: `http://127.0.0.1:8000/employee/api/custom-fields/{id}/`
+- **Method**: `DELETE`
+
+**Responses**
+- **204 No Content::**
+  - **Description**: Description: Custom field deleted successfully. Employee records updated accordingly.
+ 
+- **400 OK:**
+  - **Description**: Custom field created successfully..
+  - **Example**:
+  ```json
+     {
+      "error": "A custom field with this name already exists for this user."
+    }
+
