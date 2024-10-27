@@ -423,4 +423,57 @@ You can now access the API at http://127.0.0.1:8000/
         "error": "Invalid custom field: \"name of that field\""
       }
   ```
-       
+  
+   -> You can test the appliaction:
+    ```bash
+    python manage.py test employees
+    ```
+     ```bash
+                   
+
+        Found 4 test(s).
+        Creating test database for alias 'default'...
+        System check identified no issues (0 silenced).
+          INFO 2024-10-27 07:35:16,687 views Employee created successfully: {'id': 1, 'user': 1, 'name': 'John Doe', 'email': 'johndoe@example.com', 'phone_number': '1234567890', 'custom_fields': {}}
+          Create Employee Response: {'id': 1, 'user': 1, 'name': 'John Doe', 'email': 'johndoe@example.com', 'phone_number': '1234567890', 'custom_fields': {}}
+          ..INFO 2024-10-27 07:35:18,431 views Employee created successfully: {'id': 2, 'user': 4, 'name': 'Alice Johnson', 'email': 'alice@example.com', 'phone_number': '1112223333', 'custom_fields': {}}
+          INFO 2024-10-27 07:35:18,434 views Employee created successfully: {'id': 3, 'user': 4, 'name': 'Bob Smith', 'email': 'bob@example.com', 'phone_number': '4445556666', 'custom_fields': {}}
+          INFO 2024-10-27 07:35:18,437 views Employee created successfully: {'id': 4, 'user': 4, 'name': 'Charlie Brown', 'email': 'charlie@example.com', 'phone_number': '7778889999', 'custom_fields': {}}
+          .INFO 2024-10-27 07:35:19,147 views Employee created successfully: {'id': 5, 'user': 5, 'name': 'John Doe', 'email': 'johndoe@example.com', 'phone_number': '1234567890', 'custom_fields': {}}
+          INFO 2024-10-27 07:35:19,149 views Employee updated successfully: {'id': 5, 'user': 5, 'name': 'John Smith', 'email': 'johndoe@example.com', 'phone_number': '1234567890', 'custom_fields': {}}
+          WARNING 2024-10-27 07:35:19,152 views Failed to update employee: {'email': [ErrorDetail(string='Enter a valid email address.', code='invalid')]}
+          .
+        ----------------------------------------------------------------------
+        Ran 4 tests in 3.197s
+        
+        OK
+        Destroying test database for alias 'default'...
+        
+    ```
+        -> Also have a file to log the bug,info:
+    ```bash
+    INFO 2024-10-26 10:38:01,950 views Employee created successfully: {'id': 50, 'user': 3, 'name': 'asarudhen', 'email': 'a@1234gmail.com', 'phone_number': '132', 'custom_fields': {'experience': '21'}}
+  INFO 2024-10-26 10:38:10,891 views Employee data retrieved from Redis cache.
+  INFO 2024-10-26 10:38:10,901 views Employee updated successfully: {'id': 49, 'user': 3, 'name': 'asarudheen', 'email': 'a@gmail.com', 'phone_number': '793', 'custom_fields': {'experience': '122'}}
+  INFO 2024-10-26 10:38:21,758 views Employee data retrieved from Redis cache.
+  INFO 2024-10-26 10:38:21,774 views Employee data retrieved from Redis cache.
+  INFO 2024-10-26 10:38:27,769 views Employee data retrieved from Redis cache.
+  INFO 2024-10-26 10:38:27,777 views Employee updated successfully: {'id': 50, 'user': 3, 'name': 'asarudhen', 'email': 'a@1234gmail.com', 'phone_number': '132', 'custom_fields': {'experience': '21', 'age': '23'}}
+  INFO 2024-10-26 11:24:18,994 views Employee data retrieved from Redis cache.
+  INFO 2024-10-26 11:24:19,012 views Employee data retrieved from Redis cache.
+  INFO 2024-10-26 11:41:05,432 views All employee data cached in Redis.
+  INFO 2024-10-26 11:41:05,446 views Employee data retrieved from Redis cache.
+  INFO 2024-10-26 18:31:51,785 views Employee created successfully: {'id': 3, 'user': 1, 'name': 'manuu won', 'email': 'manaaf@gmail.com', 'phone_number': '804', 'custom_fields': {}}
+  WARNING 2024-10-26 18:34:06,677 views Failed to create employee: {'email': [ErrorDetail(string='employee with this email already exists.', code='unique')]}
+  INFO 2024-10-26 18:34:16,225 views All employee data cached in Redis.
+  INFO 2024-10-26 18:56:51,947 views Employee created successfully: {'id': 51, 'user': 6, 'name': 'k', 'email': 't@hmail.com', 'phone_number': '5632', 'custom_fields': {}}
+  ERROR 2024-10-26 18:57:21,906 views Error retrieving employee: 
+  INFO 2024-10-27 07:35:16,687 views Employee created successfully: {'id': 1, 'user': 1, 'name': 'John Doe', 'email': 'johndoe@example.com', 'phone_number': '1234567890', 'custom_fields': {}}
+  INFO 2024-10-27 07:35:18,431 views Employee created successfully: {'id': 2, 'user': 4, 'name': 'Alice Johnson', 'email': 'alice@example.com', 'phone_number': '1112223333', 'custom_fields': {}}
+  INFO 2024-10-27 07:35:18,434 views Employee created successfully: {'id': 3, 'user': 4, 'name': 'Bob Smith', 'email': 'bob@example.com', 'phone_number': '4445556666', 'custom_fields': {}}
+  INFO 2024-10-27 07:35:18,437 views Employee created successfully: {'id': 4, 'user': 4, 'name': 'Charlie Brown', 'email': 'charlie@example.com', 'phone_number': '7778889999', 'custom_fields': {}}
+  INFO 2024-10-27 07:35:19,147 views Employee created successfully: {'id': 5, 'user': 5, 'name': 'John Doe', 'email': 'johndoe@example.com', 'phone_number': '1234567890', 'custom_fields': {}}
+  INFO 2024-10-27 07:35:19,149 views Employee updated successfully: {'id': 5, 'user': 5, 'name': 'John Smith', 'email': 'johndoe@example.com', 'phone_number': '1234567890', 'custom_fields': {}}
+  WARNING 2024-10-27 07:35:19,152 views Failed to update employee: {'email': [ErrorDetail(string='Enter a valid email address.', code='invalid')]}
+  
+      ```
